@@ -1,82 +1,40 @@
 'use client';
 
-import Link from 'next/link';
-
-const navItems = [
-  { name: 'Home', href: '/', position: 'left' },
-  { name: 'Projects', href: '/projects', position: 'center' },
+const clouds = [
+  { position: 'left: 10%' },
+  { position: 'left: 30%' },
+  { position: 'left: 50%' },
+  { position: 'left: 70%' },
+  { position: 'left: 90%' },
 ];
 
-const decorativeClouds = [
-  { position: 'far-left' },
-  { position: 'far-right' },
-  { position: 'mid-left' },
-];
-
-export default function CloudNav() {
+export default function DecorativeClouds() {
   return (
-    <>
-      {/* Moon for About page - top right */}
-      <Link href="/about" className="moon-button">
-        <pre className="moon-ascii text-[8px] sm:text-[10px] md:text-xs lg:text-sm leading-none select-none">
-{`    ╭─────╮
-   ╱ ░░░░░ ╲
-  │ ░▒░░▒░░ │
-  │ ░░▒░░░▒ │
-  │ ░▒░░▒░░ │
-   ╲ ░░░░░ ╱
-    ╰─────╯`}
-        </pre>
-        <div className="moon-text">About</div>
-      </Link>
-
-      <nav className="cloud-nav">
-        {/* Decorative clouds */}
-        {decorativeClouds.map((cloud, index) => (
-          <div
-            key={`decorative-${index}`}
-            className={`decorative-cloud ${cloud.position}`}
-            style={{
-              ['--delay' as any]: `${index * 0.3}s`,
-            }}
-          >
-            <pre className="cloud-ascii-large text-[8px] sm:text-[10px] md:text-xs leading-none select-none">
-{`      .-~~~-.
-    .'       '.
-   /  ∼    ∼  \\
-  |   ∼  ∼   ∼ |
-  |  ∼   ∼  ∼  |
-   \\  ∼   ∼   /
-    '.       .'
-      '-...-'`}
-            </pre>
-          </div>
-        ))}
-
-        {/* Navigation clouds */}
-        {navItems.map((item, index) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={`cloud-button ${item.position}`}
-            style={{
-              ['--delay' as any]: `${index * 0.25}s`,
-            }}
-          >
-            <div className="cloud-text">{item.name}</div>
-            <pre className="cloud-ascii-large text-[8px] sm:text-[10px] md:text-xs leading-none select-none">
-{`      .-~~~-.
-    .'       '.
-   /  ∼    ∼  \\
-  |   ∼  ∼   ∼ |
-  |  ∼   ∼  ∼  |
-   \\  ∼   ∼   /
-    '.       .'
-      '-...-'`}
-            </pre>
-          </Link>
-        ))}
-      </nav>
-    </>
+    <div className="decorative-clouds-container">
+      {clouds.map((cloud, index) => (
+        <div
+          key={`cloud-${index}`}
+          className="puffy-cloud"
+          style={{
+            ['--delay' as any]: `${index * 0.5}s`,
+            [cloud.position.split(':')[0] as any]: cloud.position.split(':')[1].trim(),
+          }}
+        >
+          <pre className="cloud-ascii text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] leading-none select-none">
+{`                 _
+              (\`  ).                   _
+             (     ).              .:(\`  )\`.
+)           _(       '\`.          :(   .    )
+        .=(\`(      .   )     .--  \`.  (    ) )
+       ((    (..__.:'-'   .+(   )   \` _\`  ) )
+\`.     \`(       ) )       (   .  )     (   )  ._
+  )      \` __.:' )     (   (   ))     \`-'.-(\`  )
+)  )  ( )       --'       \`- __.'         :(      ))
+.-'  (_.'          .')                    \`(    )  ))
+                  (_  )                     \` __.:' `}
+          </pre>
+        </div>
+      ))}
+    </div>
   );
 }
