@@ -1,21 +1,62 @@
-import Stars from '@/components/Stars';
-import CloudNav from '@/components/CloudNav';
+"use client";
 
-export default function Projects() {
+import ParallaxBackground from "@/components/ParallaxBackground";
+import Navigation from "@/components/Navigation";
+
+export default function ProjectsPage() {
   return (
-    <div className="relative min-h-screen p-4">
-      <Stars />
+    <>
+      <ParallaxBackground />
 
-      <main className="relative z-10 max-w-6xl mx-auto py-12">
-        <CloudNav />
+      <div className="content-overlay">
+        <Navigation isHomePage={false} />
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-red-400 bg-clip-text text-transparent">
-            Projects
-          </h1>
-          <p className="text-gray-400">Coming soon...</p>
+        <div className="content-main">
+          <div className="projects-container">
+            {/* Project 1 */}
+            <div className="scroll-container">
+              <img
+                src="/assets/Scroll (Hole).png"
+                alt="Scroll"
+                className="scroll-image"
+              />
+              <div className="scroll-hole-content">
+                <div className="project-placeholder">
+                  <h2 className="text-xl font-bold">Project One</h2>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 2 */}
+            <div className="scroll-container">
+              <img
+                src="/assets/Scroll (Hole).png"
+                alt="Scroll"
+                className="scroll-image"
+              />
+              <div className="scroll-hole-content">
+                <div className="project-placeholder">
+                  <h2 className="text-xl font-bold">Project Two</h2>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3 */}
+            <div className="scroll-container">
+              <img
+                src="/assets/Scroll (Hole).png"
+                alt="Scroll"
+                className="scroll-image"
+              />
+              <div className="scroll-hole-content">
+                <div className="project-placeholder">
+                  <h2 className="text-xl font-bold">Project Three</h2>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

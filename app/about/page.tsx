@@ -1,21 +1,35 @@
-import Stars from '@/components/Stars';
-import CloudNav from '@/components/CloudNav';
+"use client";
 
-export default function About() {
+import ParallaxBackground from "@/components/ParallaxBackground";
+import Navigation from "@/components/Navigation";
+
+export default function AboutPage() {
   return (
-    <div className="relative min-h-screen p-4">
-      <Stars />
+    <>
+      <ParallaxBackground />
 
-      <main className="relative z-10 max-w-6xl mx-auto py-12">
-        <CloudNav />
+      <div className="content-overlay">
+        <Navigation isHomePage={false} />
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-red-400 bg-clip-text text-transparent">
-            About
-          </h1>
-          <p className="text-gray-400">Coming soon...</p>
+        <div className="content-main">
+          <div className="scroll-container">
+            <img
+              src="/assets/Scroll (Large).png"
+              alt="Scroll"
+              className="scroll-image"
+            />
+            <div className="scroll-content">
+              <h1 className="text-2xl font-bold mb-4">About Me</h1>
+              <p>
+                I am a passionate developer with a love for creating beautiful
+                and functional web experiences. I specialize in front-end
+                development with React and Next.js, and I am always looking for
+                new ways to push the boundaries of what is possible on the web.
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
