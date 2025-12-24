@@ -25,16 +25,10 @@ export default function Navigation({ isHomePage = false }: NavigationProps) {
 
   return (
     <motion.nav
-      layoutId={shouldAnimate ? "main-navigation" : undefined}
+      layout={shouldAnimate ? "position" : false}
       className={isHomePage ? "navigation-home" : "navigation-top"}
       animate={isHomePage ? bounceAnimation : { y: 0 }}
-      transition={{
-        layout: {
-          duration: shouldAnimate ? 1.4 : 0,
-          ease: [0.45, 0.05, 0.55, 0.95],
-          type: "tween",
-        },
-      }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
     >
       <div className="nav-container">
         <Image

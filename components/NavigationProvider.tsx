@@ -18,21 +18,14 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     const previousPath = previousPathRef.current;
-
-    // Check if we're transitioning to/from home page
-    const isFromHome = previousPath === "/";
-    const isToHome = pathname === "/";
     const isBetweenNonHomePages = previousPath !== "/" && pathname !== "/";
 
-    // Only animate when going to or from home page
-    // Don't animate when going between about/projects
     if (isBetweenNonHomePages) {
       setShouldAnimate(false);
     } else {
       setShouldAnimate(true);
     }
 
-    // Update previous path
     previousPathRef.current = pathname;
   }, [pathname]);
 

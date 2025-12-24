@@ -81,7 +81,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */ /* REMOVED */
   pointer-events: none;
   overflow-y: auto;
 }
@@ -90,58 +90,57 @@ body {
   pointer-events: auto;
   text-align: center;
   padding: 2rem;
+  padding-top: 8rem; /* Space for top nav */
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Home page navigation container - centered */
+/* Navigation */
 .home-nav-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 20;
   pointer-events: none;
 }
 
-/* Navigation - Home page (large, centered) */
 .navigation-home {
+  transform-origin: center center;
   pointer-events: auto;
-  transform-origin: center center;
+  transform: scale(3); /* Increased scale */
 }
 
-.navigation-home .nav-container {
-  position: relative;
-  display: inline-block;
-  transform: scale(2.5);
-  transform-origin: center center;
-}
-
-.navigation-home .nav-image {
-  display: block;
-  height: auto;
+.top-nav-container {
+  position: absolute;
+  top: 2rem;
+  left: 0;
   width: 100%;
-  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
 }
 
-/* Navigation - Other pages (smaller, top) */
 .navigation-top {
-  pointer-events: auto;
-  padding-top: 2rem;
-  margin-bottom: 2rem;
+  /* This class is now simpler */
   transform-origin: top center;
+  pointer-events: auto;
+  transform: scale(1);
 }
 
-.navigation-top .nav-container {
+.nav-container {
   position: relative;
   display: inline-block;
-  transform: scale(1);
-  transform-origin: top center;
 }
 
-.navigation-top .nav-image {
+.nav-image {
   display: block;
   height: auto;
   width: 100%;
@@ -246,27 +245,21 @@ body {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .parallax-image {
-    height: 100%;
-    width: auto;
     min-width: 200vw;
-    object-fit: cover;
   }
 
   .content-main {
     padding: 1rem;
+    padding-top: 6rem; /* Adjust for smaller nav */
+  }
+  
+  .navigation-home {
+    transform: scale(2.2);
   }
 
   .navigation-top {
-    padding-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .navigation-home .nav-container {
-    transform: scale(1.8);
-  }
-
-  .navigation-top .nav-container {
-    transform: scale(0.9);
+    top: 1rem;
+    transform: translateX(-50%) scale(0.9);
   }
 
   .scroll-container {

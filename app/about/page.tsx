@@ -9,7 +9,9 @@ export default function AboutPage() {
       <ParallaxBackground />
 
       <div className="content-overlay">
-        <Navigation isHomePage={false} />
+        <div className="top-nav-container">
+          <Navigation isHomePage={false} />
+        </div>
 
         <div className="content-main">
           <div className="scroll-container">
