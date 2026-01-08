@@ -38,6 +38,32 @@ export default function AboutPage() {
                 <p>
                   My technical toolkit is centered around Next.js, Python, and AI Application, but I&apos;m a builder at heart who isn&apos;t afraid to dive into the deep end of the product life cycle. When I&apos;m not at my keyboard, you&apos;ll usually find me hiking, producing music, or training in Muay Thai. I&apos;m always looking for the next challenge—whether that&apos;s engineering high-precision computer vision models or building gamified fitness apps that push the boundaries of what&apos;s possible.
                 </p>
+                <div className="about-buttons">
+                  <a
+                    href="https://drive.google.com/file/d/1KOEd-aniA0YYHQN1Ezyx9Cc8d3t7FcS_/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="about-button"
+                  >
+                    View Resume
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/artemios-kayas/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="about-button"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://github.com/TemiKayas"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="about-button"
+                  >
+                    GitHub
+                  </a>
+                </div>
               </div>
             </div>
           </div>

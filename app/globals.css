@@ -330,6 +330,34 @@ body {
   margin: 0;
 }
 
+.about-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.about-button {
+  font-family: var(--font-fredoka);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background: #6B4423;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.about-button:hover {
+  background: #553619;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
 /* Project Modal */
 .modal-backdrop {
   position: fixed;
@@ -554,6 +582,19 @@ body {
   .about-text p {
     font-size: 0.95rem !important;
     line-height: 1.6 !important;
+  }
+
+  .about-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    width: 100%;
+    text-align: center;
   }
 }
 
