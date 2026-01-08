@@ -2,8 +2,25 @@
 
 import ParallaxBackground from "@/components/ParallaxBackground";
 import Navigation from "@/components/Navigation";
+import ProjectModal from "@/components/ProjectModal";
+import Image from "next/image";
+import { projects, Project } from "@/data/projects";
+import { useState } from "react";
 
 export default function ProjectsPage() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300);
+  };
+
   return (
     <>
       <ParallaxBackground />
@@ -15,50 +32,40 @@ export default function ProjectsPage() {
 
         <div className="content-main">
           <div className="projects-container">
-            {/* Project 1 */}
-            <div className="scroll-container">
-              <img
-                src="/assets/Scroll (Hole).png"
-                alt="Scroll"
-                className="scroll-image"
-              />
-              <div className="scroll-hole-content">
-                <div className="project-placeholder">
-                  <h2 className="text-xl font-bold">Project One</h2>
+            {projects.map((project) => (
+              <div key={project.id} className="project-item">
+                <h2 className="project-title">{project.title}</h2>
+                <div
+                  className="scroll-container"
+                  onClick={() => handleProjectClick(project)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <img
+                    src="/assets/Scroll (Hole.png"
+                    alt="Scroll"
+                    className="scroll-image"
+                  />
+                  <div className="scroll-hole-content">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      className="project-image"
+                      fill
+                      sizes="(max-width: 768px) 60vw, 30vw"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="scroll-container">
-              <img
-                src="/assets/Scroll (Hole).png"
-                alt="Scroll"
-                className="scroll-image"
-              />
-              <div className="scroll-hole-content">
-                <div className="project-placeholder">
-                  <h2 className="text-xl font-bold">Project Two</h2>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 3 */}
-            <div className="scroll-container">
-              <img
-                src="/assets/Scroll (Hole).png"
-                alt="Scroll"
-                className="scroll-image"
-              />
-              <div className="scroll-hole-content">
-                <div className="project-placeholder">
-                  <h2 className="text-xl font-bold">Project Three</h2>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 }

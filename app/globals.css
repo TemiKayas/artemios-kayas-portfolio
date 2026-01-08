@@ -105,16 +105,25 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.2rem;
   z-index: 20;
+  pointer-events: none;
+}
+
+.home-cloud {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 60vw;
   pointer-events: none;
 }
 
 .navigation-home {
   transform-origin: center center;
   pointer-events: auto;
-  transform: scale(3); /* Increased scale */
 }
 
 .top-nav-container {
@@ -193,6 +202,8 @@ body {
   display: block;
   width: 100%;
   height: auto;
+  position: relative;
+  z-index: 2;
 }
 
 .scroll-content {
@@ -208,22 +219,47 @@ body {
 /* Projects container */
 .projects-container {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1200px;
+}
+
+.project-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+.project-title {
+  font-family: var(--font-fredoka);
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  margin: 0;
 }
 
 .scroll-hole-content {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 62%;
+  width: 74.4%;
   aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.project-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .project-placeholder {
@@ -236,10 +272,176 @@ body {
   border-radius: 8px;
 }
 
-/* About container */
-.about-container {
+/* About page */
+.about-scroll-container {
+  position: relative;
+  display: inline-block;
+  max-width: 1400px;
+  width: 120%;
+}
+
+.about-scroll-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-content {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 4rem 6rem 4rem;
+  z-index: 2;
+}
+
+.about-photo-container {
+  flex-shrink: 0;
+}
+
+.about-photo {
+  border-radius: 16px;
+  object-fit: cover;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.about-text p {
+  font-family: var(--font-nunito);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Project Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 50;
+  backdrop-filter: blur(4px);
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  z-index: 51;
+  max-width: 900px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #D4A574;
+  border-radius: 12px;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+}
+
+.modal-title {
+  font-family: var(--font-fredoka);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
   text-align: center;
-  padding: 2rem;
+  margin: 0;
+}
+
+.modal-image-container {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.modal-description {
+  font-family: var(--font-nunito);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #1a1a1a;
+  text-align: center;
+  max-width: 700px;
+  margin: 0;
+}
+
+.modal-button {
+  font-family: var(--font-fredoka);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  background: #6B4423;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-button:hover {
+  background: #553619;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Mobile responsiveness */
@@ -252,14 +454,18 @@ body {
     padding: 1rem;
     padding-top: 6rem; /* Adjust for smaller nav */
   }
-  
-  .navigation-home {
-    transform: scale(2.2);
+
+  .home-cloud {
+    max-width: 80vw;
   }
 
   .navigation-top {
     top: 1rem;
     transform: translateX(-50%) scale(0.9);
+  }
+
+  .projects-container {
+    grid-template-columns: 1fr;
   }
 
   .scroll-container {
@@ -280,7 +486,74 @@ body {
   }
 
   .scroll-hole-content {
-    width: 60%;
+    width: 72%;
+    top: 45%;
+  }
+
+  .project-title {
+    font-size: 2rem;
+  }
+
+  .modal-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 2rem;
+  }
+
+  .modal-description {
+    font-size: 1rem;
+  }
+
+  .modal-button {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .about-scroll-container {
+    max-width: 90vw !important;
+    width: 90vw !important;
+    position: static !important;
+    display: block !important;
+  }
+
+  .about-scroll-image {
+    display: none !important;
+  }
+
+  .about-content {
+    position: static !important;
+    transform: none !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 2rem !important;
+    padding: 2rem 1.5rem !important;
+    background: #D4A574 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .about-photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-photo {
+    width: 200px !important;
+    height: 267px !important;
+  }
+
+  .about-text {
+    width: 100%;
+  }
+
+  .about-text p {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
   }
 }
 

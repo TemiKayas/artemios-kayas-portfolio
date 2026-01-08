@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fredoka, Nunito } from "next/font/google";
 import { NavigationProvider } from "@/components/NavigationProvider";
 import "./globals.css";
 
@@ -10,6 +10,18 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -24,9 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fredoka.variable} ${nunito.variable} antialiased`}
       >
         <NavigationProvider>{children}</NavigationProvider>
       </body>

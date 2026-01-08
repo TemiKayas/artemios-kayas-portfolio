@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigation } from "./NavigationProvider";
+import { useState, useEffect } from "react";
 
 interface NavigationProps {
   isHomePage?: boolean;
@@ -11,24 +12,43 @@ interface NavigationProps {
 
 export default function Navigation({ isHomePage = false }: NavigationProps) {
   const { shouldAnimate } = useNavigation();
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Periodic bounce animation - slower and smoother
-  const bounceAnimation = {
-    y: [0, -15, 0],
-    transition: {
-      duration: 3.5,
-      repeat: Infinity,
-      repeatDelay: 5,
-      ease: [0.45, 0.05, 0.55, 0.95], // Custom easing for smoother motion
-    },
-  };
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const homeScale = isMobile ? 2.2 : 3;
 
   return (
     <motion.nav
       layout={shouldAnimate ? "position" : false}
       className={isHomePage ? "navigation-home" : "navigation-top"}
-      animate={isHomePage ? bounceAnimation : { y: 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      initial={isHomePage ? { scale: homeScale, y: 0 } : { scale: 1, y: 0 }}
+      animate={
+        isHomePage
+          ? { y: [0, -15, 0], scale: homeScale }
+          : { y: 0, scale: 1 }
+      }
+      transition={
+        isHomePage
+          ? {
+              scale: { duration: 0 },
+              y: {
+                duration: 3.5,
+                repeat: Infinity,
+                repeatDelay: 5,
+                ease: [0.45, 0.05, 0.55, 0.95] as [number, number, number, number],
+              }
+            }
+          : { duration: 0.8, ease: "easeInOut" }
+      }
     >
       <div className="nav-container">
         <Image
