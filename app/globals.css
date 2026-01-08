@@ -13,6 +13,13 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+  }
+}
+
 /* Parallax Container - fills entire viewport */
 .parallax-container {
   position: fixed;
@@ -479,15 +486,19 @@ body {
   }
 
   .content-overlay {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: visible;
+    display: block;
   }
 
   .content-main {
     padding: 1rem;
     padding-top: 6rem; /* Adjust for smaller nav */
     padding-bottom: 4rem;
-    align-items: flex-start;
+    display: block;
+    height: auto;
     min-height: auto;
   }
 
