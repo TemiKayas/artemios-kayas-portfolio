@@ -478,9 +478,17 @@ body {
     min-width: 200vw;
   }
 
+  .content-overlay {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .content-main {
     padding: 1rem;
     padding-top: 6rem; /* Adjust for smaller nav */
+    padding-bottom: 4rem;
+    align-items: flex-start;
+    min-height: auto;
   }
 
   .home-cloud {
@@ -494,6 +502,7 @@ body {
 
   .projects-container {
     grid-template-columns: 1fr;
+    width: 100%;
   }
 
   .scroll-container {

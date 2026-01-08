@@ -29,7 +29,13 @@ export const metadata: Metadata = {
   title: "Artemios Kayas Portfolio",
   description: "Portfolio showcasing my work in Full-Stack Engineering and Applied AI",
   icons: {
-    icon: "/assets/ArtemiosCloud.png",
+    icon: [
+      { url: "/assets/ArtemiosCloud.png?v=2" },
+      { url: "/assets/ArtemiosCloud.png?v=2", sizes: "32x32", type: "image/png" },
+      { url: "/assets/ArtemiosCloud.png?v=2", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/assets/ArtemiosCloud.png?v=2",
+    shortcut: "/assets/ArtemiosCloud.png?v=2",
   },
 };
 
