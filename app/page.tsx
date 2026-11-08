@@ -1,41 +1,42 @@
 "use client";
 
-import ParallaxBackground from "@/components/ParallaxBackground";
-import Navigation from "@/components/Navigation";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import Nav from "@/components/Nav";
+import Hero from "@/components/Hero";
+import Work from "@/components/Work";
+import About from "@/components/About";
+import TimeHud from "@/components/TimeHud";
+import Lab from "@/components/Lab";
+import { hydrateSettings, useSettings } from "@/lib/store";
+
+const SkyCanvas = dynamic(() => import("@/components/SkyCanvas"), { ssr: false });
 
 export default function Home() {
-  return (
-    <>
-      <ParallaxBackground />
+  const s = useSettings();
+  useEffect(hydrateSettings, []);
+  useEffect(() => {
+    const root = document.documentElement;
+    const onScroll = () => root.style.setProperty("--scroll-k", Math.min(1, window.scrollY / (window.innerHeight * 0.9)).toFixed(3));
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-      {/* Content overlay - centered navigation only */}
-      <div className="content-overlay">
-        <div className="home-nav-container">
-          <Navigation isHomePage={true} />
-          <motion.div
-            animate={{
-              y: [0, -15, 0],
-            }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              repeatDelay: 5,
-              ease: [0.45, 0.05, 0.55, 0.95] as [number, number, number, number],
-            }}
-          >
-            <Image
-              src="/assets/ArtemiosCloud.png"
-              alt="Artemios Cloud"
-              className="home-cloud"
-              width={800}
-              height={400}
-              priority
-            />
-          </motion.div>
-        </div>
+  return (
+    <div className={`site type-${s.type}`}>
+      <div className="sky-fallback" aria-hidden />
+      <SkyCanvas />
+      <Nav />
+      <main>
+        <Hero />
+        <Work />
+        <About />
+      </main>
+      <div className="dock">
+        <TimeHud />
+        <Lab />
       </div>
-    </>
+    </div>
   );
 }

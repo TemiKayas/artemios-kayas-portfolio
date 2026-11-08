@@ -1,55 +1,37 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fredoka, Nunito } from "next/font/google";
-import { NavigationProvider } from "@/components/NavigationProvider";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Inter, Pixelify_Sans, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const fraunces = Fraunces({ variable: "--f-storybook", subsets: ["latin"], axes: ["SOFT", "WONK", "opsz"], style: ["normal", "italic"] });
+const inter = Inter({ variable: "--f-body", subsets: ["latin"] });
+const pixel = Pixelify_Sans({ variable: "--f-pixel", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const bricolage = Bricolage_Grotesque({ variable: "--f-modern", subsets: ["latin"] });
+const instrument = Instrument_Serif({ variable: "--f-editorial", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-
-const nunito = Nunito({
-  variable: "--font-nunito",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+const site = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 
 export const metadata: Metadata = {
-  title: "Artemios Kayas Portfolio",
-  description: "Portfolio showcasing my work in Full-Stack Engineering and Applied AI",
-  icons: {
-    icon: [
-      { url: "/assets/ArtemiosCloud.png?v=2" },
-      { url: "/assets/ArtemiosCloud.png?v=2", sizes: "32x32", type: "image/png" },
-      { url: "/assets/ArtemiosCloud.png?v=2", sizes: "16x16", type: "image/png" },
-    ],
-    apple: "/assets/ArtemiosCloud.png?v=2",
-    shortcut: "/assets/ArtemiosCloud.png?v=2",
+  metadataBase: new URL(site),
+  title: "Artemios Kayas — Full-Stack & Applied AI Engineer",
+  description:
+    "Portfolio of Artemios Kayas: full-stack engineering and applied AI. Lead developer of ClassChat, award-winning hackathon builder.",
+  icons: { icon: "/art/icon.png", apple: "/art/icon.png" },
+  openGraph: {
+    title: "Artemios Kayas",
+    description: "Full-stack engineering & applied AI.",
+    images: [{ url: "/art/og.jpg", width: 1200, height: 630 }],
   },
+  twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = { themeColor: "#2a2860" };
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fredoka.variable} ${nunito.variable} antialiased`}
-      >
-        <NavigationProvider>{children}</NavigationProvider>
+    <html lang="en">
+      <body className={`${fraunces.variable} ${inter.variable} ${pixel.variable} ${bricolage.variable} ${instrument.variable}`}>
+        {children}
       </body>
     </html>
   );
