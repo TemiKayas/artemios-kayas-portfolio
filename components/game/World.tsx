@@ -128,12 +128,14 @@ function makeCloud(seed: number) {
 /* ================================================================== */
 function drawSun(c: CanvasRenderingContext2D, cx: number, cy: number, t: number, big: number) {
   const R = 7 * big;
-  for (let k = 3; k >= 1; k--) {
-    c.fillStyle = `rgba(255,200,90,${0.08 * k})`;
-    const e = R + k * 3 + (k === 3 ? Math.round(Math.sin(t * 2)) : 0);
-    c.fillRect(cx - e + 2, cy - e, e * 2 - 4, e * 2);
-    c.fillRect(cx - e, cy - e + 2, e * 2, e * 2 - 4);
-  }
+  // soft, translucent halo (additive so it brightens the sky instead of covering it)
+  const H = R * 3.4 + Math.sin(t * 2) * 0.8;
+  const g = c.createRadialGradient(cx, cy, R * 0.6, cx, cy, H);
+  g.addColorStop(0, "rgba(255,210,110,0.22)");
+  g.addColorStop(0.35, "rgba(255,190,90,0.09)");
+  g.addColorStop(1, "rgba(255,170,70,0)");
+  c.save(); c.globalCompositeOperation = "lighter"; c.fillStyle = g;
+  c.fillRect(cx - H, cy - H, H * 2, H * 2); c.restore();
   for (let j = -R; j <= R; j++) for (let i = -R; i <= R; i++) {
     const d = Math.hypot(i, j) / R;
     if (d > 1) continue;
@@ -144,9 +146,13 @@ function drawSun(c: CanvasRenderingContext2D, cx: number, cy: number, t: number,
 }
 function drawMoon(c: CanvasRenderingContext2D, cx: number, cy: number, sky: RGB, big: number) {
   const R = 6 * big;
-  c.fillStyle = "rgba(190,210,255,0.12)";
-  c.fillRect(cx - R - 5, cy - R - 3, R * 2 + 10, R * 2 + 6);
-  c.fillRect(cx - R - 3, cy - R - 5, R * 2 + 6, R * 2 + 10);
+  const H = R * 3;
+  const g = c.createRadialGradient(cx, cy, R * 0.7, cx, cy, H);
+  g.addColorStop(0, "rgba(190,210,255,0.14)");
+  g.addColorStop(0.4, "rgba(170,195,255,0.05)");
+  g.addColorStop(1, "rgba(160,190,255,0)");
+  c.save(); c.globalCompositeOperation = "lighter"; c.fillStyle = g;
+  c.fillRect(cx - H, cy - H, H * 2, H * 2); c.restore();
   for (let j = -R; j <= R; j++) for (let i = -R; i <= R; i++) {
     const d = Math.hypot(i, j) / R;
     if (d > 1) continue;
@@ -538,9 +544,10 @@ export default function World() {
       if (night > 0.05) {
         ctx.globalCompositeOperation = "lighter";
         for (const l of lights) {
-          const R = (l.kind === "fire" ? 26 : 14) + Math.sin(Tm * 9 + l.x) * 1.5;
+          const R = (l.kind === "fire" ? 30 : 17) + Math.sin(Tm * 9 + l.x) * 1.5;
           const g = ctx.createRadialGradient(l.x, l.y, 0, l.x, l.y, R);
-          g.addColorStop(0, `rgba(255,170,70,${0.55 * night})`);
+          g.addColorStop(0, `rgba(255,180,90,${0.26 * night})`);
+          g.addColorStop(0.3, `rgba(255,150,60,${0.1 * night})`);
           g.addColorStop(1, "rgba(255,120,40,0)");
           ctx.fillStyle = g; ctx.fillRect(l.x - R, l.y - R, R * 2, R * 2);
         }

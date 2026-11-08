@@ -202,7 +202,7 @@ button.slot:hover .px { transform: scale(1.1) rotate(-4deg); }
 .tooltip {
   position: fixed;
   z-index: 30;
-  max-width: 300px;
+  max-width: min(300px, calc(100vw - 16px));
   padding: 10px 12px;
   background: rgba(10, 12, 34, 0.94);
   border: 2px solid var(--outline);

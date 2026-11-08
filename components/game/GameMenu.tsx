@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { projects, type Project } from "@/data/projects";
 import { SPRITES, spriteSrc, type SpriteName } from "@/lib/game/sprites";
 import {
@@ -92,6 +93,20 @@ function Panel({ title, children, onBack, wide = false }: { title: string; child
 /* ------------------------------------------------------------------ */
 /* screens                                                             */
 /* ------------------------------------------------------------------ */
+/** Position a cursor tooltip, flipping left/up when it would overflow the viewport. */
+function placeTip(m: { x: number; y: number }) {
+  return (el: HTMLDivElement | null) => {
+    if (!el) return;
+    const pad = 8, off = 18, w = el.offsetWidth, h = el.offsetHeight;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    let x = m.x + off, y = m.y + off;
+    if (x + w > vw - pad) x = m.x - off - w;
+    if (y + h > vh - pad) y = m.y - off - h;
+    el.style.left = `${Math.max(pad, Math.min(x, vw - w - pad))}px`;
+    el.style.top = `${Math.max(pad, Math.min(y, vh - h - pad))}px`;
+  };
+}
+
 function Projects({ onBack }: { onBack: () => void }) {
   const inspected = useInspected();
   const [hover, setHover] = useState<Project | null>(null);
@@ -164,14 +179,15 @@ function Projects({ onBack }: { onBack: () => void }) {
           );
         })}
       </ul>
-      {hover && (
-        <div className="tooltip" style={{ left: mouse.x + 18, top: mouse.y + 18 }} role="tooltip">
+      {hover && createPortal(
+        <div className="tooltip" ref={placeTip(mouse)} role="tooltip">
           <p className={`tooltip__name ${rarity(hover).cls}`}>{hover.title}</p>
           {hover.badge && <p className="tooltip__badge">★ {hover.badge}</p>}
           <p className="tooltip__line">{hover.summary}</p>
           <p className="tooltip__stat">+{hover.tech.length} tech: {hover.tech.slice(0, 3).join(", ")}{hover.tech.length > 3 ? "…" : ""}</p>
           <p className="tooltip__muted">{rarity(hover).label} · Click to inspect</p>
-        </div>
+        </div>,
+        document.body,
       )}
     </Panel>
   );
