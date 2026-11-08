@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   title: "Artemios Kayas — Full-Stack & Applied AI Engineer",
   description:
     "Portfolio of Artemios Kayas: full-stack engineering and applied AI. Lead developer of ClassChat, award-winning hackathon builder.",
-  icons: { icon: "/art/icon.png", apple: "/art/icon.png" },
+  icons: { icon: "/game/icon.png", apple: "/game/icon.png" },
   openGraph: {
     title: "Artemios Kayas",
     description: "Full-stack engineering & applied AI.",
-    images: [{ url: "/art/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/game/og.jpg", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },
 };
